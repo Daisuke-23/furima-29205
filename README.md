@@ -34,7 +34,7 @@ READNE
 | first_name       | string     | null: false                    |
 | family_name_kana | string     | null: false                    |
 | first_name_kana  | string     | null: false                    |
-| birth_date       | dat        | null: false                    |
+| birth_date       | date        | null: false                    |
 
 Association
 has_many :items dependent: :destroy
@@ -46,7 +46,7 @@ has_many :purchases dependent: :destroy
 | name             | string     | null: false                    |
 | price            | integer    | null: false                    |
 | description      | text       | null: false                    |
-| user_id          | references | null: false,foreign_key: true  |
+| user             | references | null: false,foreign_key: true  |
 | category_id      | integer    | null: false                    |
 | postage_payer_id | integer    | null: false                    |
 | prefecture_id    | integer    | null: false                    |
