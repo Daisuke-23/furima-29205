@@ -22,62 +22,60 @@ READNE
 * Deployment instructions
 
 * ...
-usersテーブル
-|Column	   |Type	 |Options                   |
-|name	     |string |null: false               |
-|password	 |string |null: false               |
-|email	   |string |	null:false, unique:true |
+
+テーブル設計
+ #users テーブル
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| nickname         | string     | null: false                    |
+| email            | string     | null: false, uniqueness: true  |
+| password         | string     | null: false, uniqueness: true  |
+| family_name      | string     | null: false                    |
+| first_name       | string     | null: false                    |
+| family_name_kana | string     | null: false                    |
+| first_name_kana  | string     | null: false                    |
+| birth_date       | dat        | null: false                    |
 
 Association
-has_many :items, dependent: :destroy
-has_many :comments, dependent: :destroy
-has_many :favorites, dependent: :destroy
-has_one :profile, dependent: :destroy
-has_one :sns_authentication, dependent: :destroy
-has_one :sending_destination, dependent: :destroy
-has_one :credit_card, dependent: :destroy
+has_many :items dependent: :destroy
+has_many :purchases dependent: :destroy
 
-profiles テーブル
-|Column	          |Type	     |  Options
-|first_name	      |string	   |  null:false
-|family_name	    |string	   |  null:false
-|first_name_kana  |string	   |  null:false
-|family_name_kana	|string	   |  null:false
-|birth_day	      |date	     |  null:false
-|introduction	    |text      |
-|user	            |references|  null:false,foreign_key:true
+#items テーブル
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| name             | string     | null: false                    |
+| price            | integer    | null: false                    |
+| description      | text       | null: false                    |
+| user_id          | integer    | null: false                    |
+| category_id      | integer    | null: false                    |
+| postage_payer_id | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| handling_time_id | integer    | null: false                    |
 
 Association
-belongs_to :user
+ belongs_to :user
+ has_one :purchase dependent: :destroy
 
-itemsテーブル
-|Column	         |Type	    | Options
-|name	           |string    |	null:false
-|introduction	   |text      |	null:false
-|price           |integer   |	null:false
-|brand	         |text      |	null:false
-|item_condition	 |integer   | null:false,foreign_key:true
-|postage_payer   |integer   |	null:false,foreign_key: true
-|prefecture_code |integer   |	null:false
-|preparation_day |integer   |	null:false,foreign_key: true
-|category	       |references|	null:false,foreign_key:true
-|trading_status	 |integer   |
-|seller	         |references|	null:false,foreign_key:true
-|buyer	         |references|	foreign_key:true
+#purchases テーブル
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| item             | references | null: false, foreign_key: true |
+| user             | references | null: false, foreign_key: true |
 
 Association
-has_many :comments, dependent: :destroy
-has_many :favorites, dependent: :destroy
-has_many :item_imgs, dependent: :destroy
-belongs_to :category
-belongs_to :user
+ belongs_to :user
+ belongs_to :item
+ has_one :address dependent: :destroy
 
-commentsテーブル
-|Column	 |Type	     |Options
-|comment |text	     |null:false
-|user	   |references |null:false,foreign_key:true
-|item	   |references |null:false,foreign_key:true
+addresses テーブル
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| post_code        | string     | null: false                    |
+| prefecture_id    | integer    | null: false, foreign_key: true |
+| city             | string     | null: false                    |
+| building_name    | string     | null: false                               |
+| phone_number     | string     | null: false, uniqueness: true  |
+| purchase         | string     | null: false, foreign_key: true |
 
 Association
-belongs_to :user
-belongs_to :item
+belongs_to :purchase
