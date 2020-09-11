@@ -78,9 +78,4 @@ describe '商品出品機能' do
     expect(@item).to be_valid
   end
 
-  it '販売価格は半角数字のみ入力可能であること' do
-    @item.price = '１０００'
-    @item.valid?
-    expect(@item.errors.full_messages).to include('Price is not a number')
-  end
 end
