@@ -24,7 +24,7 @@ class User < ApplicationRecord
                                    message: 'Full-width characters' }
   validates :family_name_kana, presence: true,
                                format: { with: FAMILY_KANA_REGEX,
-                                         message: 'Full-width katakana characters'}
+                                         message: 'Full-width katakana characters' }
   validates :first_name_kana, presence: true,
                               format: { with: FAMILY_KANA_REGEX,
                                         message: 'Full-width katakana characters'}
