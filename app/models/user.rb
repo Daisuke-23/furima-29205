@@ -3,11 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  # has_many :items dependent: :destroy
-  # has_many :purchases dependent: :destroy
-  
-  FAMILY_NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/
-  FAMILY_KANA_REGEX = /\A[ァ-ヶー－]+\z/
+
+  has_many :items, dependent: :destroy
+  has_many :purchases, dependent: :destroy
+
+  FAMILY_NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
+  FAMILY_KANA_REGEX = /\A[ァ-ヶー－]+\z/.freeze
 
   validates :nickname, presence: true
   validates :email, presence: true, uniqueness: true
