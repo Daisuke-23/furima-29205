@@ -18,8 +18,6 @@ class Item < ApplicationRecord
 
   validates :description, presence: true, length: { maximum: 1000 }
 
-  # validates :user, presence: true, foreign_key: true
-
   validates :category_id, presence: true, numericality: { other_than: 1, message: 'Select' }
 
   validates :condition_id, presence: true, numericality: { other_than: 1, message: 'Select' }
