@@ -10,7 +10,7 @@
         <%= image_tag @item.image, class:"item-box-img" if @item.image.attached? %>
         
       <%# 商品が売れている場合は、sold outを表示しましょう %>
-      <% if @item.purchase != nil %>
+      <% if @item.order != nil %>
         <div class='sold-out'>
           <span>Sold Out!!</span>
         </div>
@@ -26,14 +26,20 @@
       </span>
     </div>
 
-    <% if user_signed_in? && @item.user.id == current_user.id %>
-      <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
-        <p class='or-text'>or</p>
+    <%# 商品が売れている場合、商品の編集・購入を表示しない記述 %>
+    <% if @item.order != nil && user_signed_in? && @item.user.id == current_user.id %>
       <%= link_to '削除', item_path(@item), method: :delete, class:'item-destroy' %>
-
+    <% elsif @item.order != nil %>
+    <%# // 商品が売れている場合、商品の編集・削除・購入を表示しない記述 %>
+    <%# ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示する記述%>
+    <% elsif user_signed_in? && @item.user.id == current_user.id %>
+      <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
+      <p class='or-text'>or</p>
+      <%= link_to '削除', item_path(@item), method: :delete, class:'item-destroy' %>
+    <%# // ログインしているユーザと出品しているユーザが同一人物である時、商品の編集と削除を表示する記述 %>
+    <%# ログインユーザと出品したユーザが異なる時、商品の購入を表示する記述 %>
     <% else %>
-    <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
-
+    <%= link_to '購入画面に進む', item_orders_path(item_id: @item.id) ,class:"item-red-btn"%>
     <% end %>
     
     <div class="item-explain-box">
