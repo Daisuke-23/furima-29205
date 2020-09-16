@@ -76,5 +76,11 @@ describe '商品出品機能' do
     expect(@item.errors.full_messages).to include('Price Out of setting range')
     @item.price = 9_999_999
     expect(@item).to be_valid
+
+    it '販売価格は半角数字のみ入力可能であること' do
+      @item.price = '１０００'
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is invalid. Input half-width numbers.')
+    end
   end
 end

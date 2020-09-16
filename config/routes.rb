@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update, :create]
 
   resources :items do
+  resources :orders,  only: [:index, :create]
   post :edit
+
   end
 
 end
