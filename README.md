@@ -78,6 +78,6 @@ addresses テーブル
 | phone_number     | string     | null: false, uniqueness: true  |
 | order            | references | null: false, foreign_key: true |
 
-
 Association
 belongs_to :orders
+
