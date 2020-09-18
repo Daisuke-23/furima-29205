@@ -64,3 +64,4 @@ gem 'active_hash'
 gem 'payjp'
 gem 'rails_12factor'
 gem 'pry-rails'
+gem "aws-sdk-s3", require: false
