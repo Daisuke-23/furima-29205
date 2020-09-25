@@ -81,3 +81,5 @@ addresses テーブル
 Association
 belongs_to :orders
 
+
+
