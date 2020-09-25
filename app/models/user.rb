@@ -13,21 +13,21 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])\w{6,128}\z/.freeze
   validates :password, presence: true,
                        format: { with: VALID_PASSWORD_REGEX,
-                                 message: 'includes both letters and numbers' }
+                                 message: 'は半角英数字混合で入力してください' }
   validates :password_confirmation, presence: true, length: { minimum: 6 }
   NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
   NAME_KANA_REGEX = /\A[ァ-ヶー－]+\z/.freeze
   validates :family_name, presence: true,
                           format: { with: NAME_REGEX,
-                                    message: 'Full-width characters' }
+                                    message: 'は全角で入力してください' }
   validates :first_name, presence: true,
                          format: { with: NAME_REGEX,
-                                   message: 'Full-width characters' }
+                                   message: 'は全角で入力してください' }
   validates :family_name_kana, presence: true,
                                format: { with: NAME_KANA_REGEX,
-                                         message: 'Full-width katakana characters' }
+                                         message: 'は全角カタカナで入力してください' }
   validates :first_name_kana, presence: true,
                               format: { with: NAME_KANA_REGEX,
-                                        message: 'Full-width katakana characters' }
+                                        message: 'は全角カタカナで入力してください' }
   validates :birth_date, presence: true
 end
